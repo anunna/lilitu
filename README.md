@@ -1,2 +1,2 @@
-# ebuilds
+# lilitu
 Gentoo custom ebuilds
