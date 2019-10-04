@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="unprivileged"
 
-DEPEND="dev-db/postgresql-server
+DEPEND="dev-db/postgresql
 	virtual/jdk"
 use	unprivileged && DEEPND="${DEPEND}
 	=dev-java/icedtea-3.13.0"
