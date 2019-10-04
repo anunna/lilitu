@@ -1,0 +1,60 @@
+#!/sbin/runscript
+# Copyright 1999-2019 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+opts="${opts} fullstatus"
+
+OPENNMS_HOME="/opt/opennms"
+UNPRIVILEGED="no"
+
+function onms_run() {
+	if [ "UNPRIVILEGED" = "yes" ] ; then
+		su opennms -s /bin/sh -c "${OPENNMS_HOME}/bin/opennms $*"
+	else
+		${OPENNMS_HOME}/bin/opennms $*
+	fi
+}
+
+depend() {
+	need net
+	use postgres dns
+}
+
+checkconfig() {
+	if [ ! -f /opt/opennms/etc/java.conf -o ! -f /opt/opennms/etc/configured ] ; then
+		eerror "OpenNMS is not configured"
+		eerror "Please run installer:"
+		eerror "su opennms -s /bin/sh -c \"${OPENNMS_HOME}/bin/runjava -h\""
+		eerror "su opennms -s /bin/sh -c \"${OPENNMS_HOME}/bin/install -h\""
+		eerror
+		eerror "http://www.opennms.org/wiki/QuickStart#Initialize_OpenNMS_and_the_Database"
+		return 1
+	fi
+}
+
+start() {
+	checkconfig || return 1
+	ebegin "Starting OpenNMS"
+	onms_run start > /dev/null
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping OpenNMS"
+	onms_run stop > /dev/null
+	eend $?
+}
+
+status() {
+	if [ "$RC_QUIET" != "yes" ]; then
+		onms_run status
+	fi
+}
+
+fullstatus() {
+	if [ "$RC_QUIET" != "yes" ]; then
+		onms_run -v status
+	fi
+}
+
