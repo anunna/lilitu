@@ -21,7 +21,7 @@ IUSE="unprivileged"
 
 DEPEND="dev-db/postgresql
 	virtual/jdk"
-use	unprivileged && DEEPND="${DEPEND}
+use	unprivileged && DEPEND="${DEPEND}
 	=dev-java/icedtea-3.13.0"
 RDEPEND="${DEPEND}
 	net-analyzer/iplike
