@@ -20,17 +20,14 @@ KEYWORDS="amd64 x86"
 IUSE="unprivileged"
 
 DEPEND="dev-db/postgresql
-	virtual/jdk"
-use	unprivileged && DEPEND="${DEPEND}
-	=dev-java/icedtea-3.13.0"
+	virtual/jdk
+  unprivileged? ( =dev-java/icedtea-3.13.0 )"
 RDEPEND="${DEPEND}
 	net-analyzer/iplike
 	dev-java/jicmp
 	dev-java/jrrd
-	net-analyzer/rrdtool"
-use unprivileged && RDEPEND="${RDEPEND}
-	dev-util/patchelf
-	sys-libs/libcap"
+	net-analyzer/rrdtool
+  unprivileged? ( dev-util/patchelf sys-libs/libcap )"
 
 S="${WORKDIR}/${P}-${RN}"
 
