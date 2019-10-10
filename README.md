@@ -13,7 +13,7 @@ Download the lilitu.conf:
 
     # wget -P /etc/portage/repos.conf/ https://raw.githubusercontent.com/AliaSiddique/lilitu/master/lilitu.conf
 
-## Sync it.
+## Sync it
 
     # emaint sync --repo lilitu
 
