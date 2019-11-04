@@ -18,6 +18,19 @@ IUSE=""
 DEPEND=">=virtual/jdk-1.6"
 RDEPEND=">=virtual/jre-1.6"
 
+S="${WORKDIR}/${P}-${RN}"
+
+src_unpack() {
+	unpack ${A}
+	cd ${S}
+}
+
+src_configure(){
+	econf \
+		autoreconf -fvi || die \
+		./configure || die
+}
+
 src_install() {
-  emake DESTDIR="$(D)" install || die
+  	emake DESTDIR="$(D)" install || die
 }
